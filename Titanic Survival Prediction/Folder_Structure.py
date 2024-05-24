@@ -1,7 +1,7 @@
 import os
 
 # Base directory
-base_dir = r"C:\Users\anilk\Desktop\test"
+base_dir = r"Your_path_here"
 
 # Directory structure
 directories = [".assets", "configs", "pipelines", "steps", "utils","data"]

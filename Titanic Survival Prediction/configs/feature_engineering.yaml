@@ -1,0 +1,18 @@
+# environment configuration
+settings:
+  docker:
+    required_integrations:
+      - sklearn
+    requirements:
+      - pyarrow
+
+# pipeline configuration
+parameters:
+  test_size: 0.33
+  drop_duplicates: true
+  drop_columns: ["PassengerId", "Name", "Ticket", "Cabin"]
+  random_state: 27
+  normalize: true
+  target: "Survived"
+  shuffle: true
+  fill_missing: true
