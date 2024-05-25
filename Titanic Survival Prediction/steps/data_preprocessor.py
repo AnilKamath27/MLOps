@@ -78,7 +78,7 @@ def data_preprocessor(
         "Age",
         "Fare",
         "FamilySize",
-        "Sex",
+        "Sex_male",
         "Embarked_Q",
         "Embarked_S",
     ]

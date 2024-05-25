@@ -14,7 +14,6 @@ model:
   description: A titanic survival classifier
   tags: [ "titanic_survival", "classifier" ]
 
-
-# pipeline configuration
-# parameters:
-#   drop_columns: ["PassengerId", "Name", "Ticket", "Cabin"]
+# Configure the pipeline
+parameters:
+  model_type: "logreg"  # Choose between rf/logreg

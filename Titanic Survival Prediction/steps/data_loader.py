@@ -29,7 +29,8 @@ def data_loader(
         inference_subset = dataset.sample(inference_size, random_state=random_state)
         if is_inference:
             dataset = inference_subset
-            dataset.drop(columns=target, inplace=True)
+            # dataset.drop(columns=target, inplace=True)
+
         else:
             dataset.drop(inference_subset.index, inplace=True)
         dataset.reset_index(drop=True, inplace=True)
@@ -39,8 +40,3 @@ def data_loader(
     except Exception as e:
         logger.error("Error while ingesting the data.")
         raise e
-
-
-# if __name__ == "__main__":
-#     a = data_loader(is_inference=False)
-#     print(a)

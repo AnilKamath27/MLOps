@@ -1,10 +1,11 @@
 import os
 from typing import Optional
 
+import yaml
 from zenml.client import Client
 from zenml.logger import get_logger
 
-from pipelines import feature_engineering, training
+from pipelines import feature_engineering, training, inference
 
 logger = get_logger(__name__)
 
@@ -16,7 +17,7 @@ def main(
     test_dataset_version_name: Optional[str] = None,
     training_pipeline: bool = False,
     feature_pipeline: bool = False,
-    # inference_pipeline: bool = False,
+    inference_pipeline: bool = False,
     no_cache: bool = False,
 ):
     client = Client()
@@ -89,15 +90,57 @@ def main(
         training.with_options(**pipeline_args)(**run_args_train)
         logger.info("Training pipeline with RF finished successfully!\n\n")
 
+    if inference_pipeline:
+        run_args_inference = {}
+        pipeline_args = {
+            "enable_cache": False,
+            "config_path": os.path.join(config_folder, "inference.yaml"),
+        }
+
+        # Configure the pipeline
+        inference_configured = inference.with_options(**pipeline_args)
+
+        # Fetch the production model
+        with open(pipeline_args["config_path"], "r") as f:
+            config = yaml.load(f, Loader=yaml.SafeLoader)
+        zenml_model = client.get_model_version(
+            config["model"]["name"], config["model"]["version"]
+        )
+        preprocess_pipeline_artifact = zenml_model.get_artifact("preprocess_pipeline")
+
+        # Use the metadata of feature engineering pipeline artifact
+        #  to get the random state and target column
+        random_state = preprocess_pipeline_artifact.run_metadata["random_state"].value
+        target = preprocess_pipeline_artifact.run_metadata["target"].value
+        run_args_inference["random_state"] = random_state
+        run_args_inference["target"] = target
+
+        # Run the pipeline
+        inference_configured(**run_args_inference)
+        logger.info("Inference pipeline finished successfully!")
+
 
 if __name__ == "__main__":
-    main(training_pipeline=True)
-    # main(train_dataset_name="train_dataset",
-    #      test_dataset_name="test_dataset",
-    #      training_pipeline=True,
-    #      train_dataset_version_name="40",
-    #      test_dataset_version_name="40")
+    # main(feature_pipeline=True)
 
+    # main(
+    #     train_dataset_name="train_dataset",
+    #     test_dataset_name="test_dataset",
+    #     training_pipeline=True,
+    #     train_dataset_version_name="44",
+    #     test_dataset_version_name="44",
+    # )
 
-# 1. Train Dataset - Name: train_dataset, Version Name: 40
-# 2. Test Dataset: Name: test_dataset, Version Name: 40
+    # main(
+    #     inference_pipeline=True,
+        
+    # )
+
+    main(
+        train_dataset_name="train_dataset",
+        test_dataset_name="test_dataset",
+        training_pipeline=True,
+        inference_pipeline=True,
+        train_dataset_version_name="44",
+        test_dataset_version_name="44",
+    )
