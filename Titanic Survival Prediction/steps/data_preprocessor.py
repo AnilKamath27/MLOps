@@ -22,9 +22,9 @@ def data_preprocessor(
     random_state: int,
     train_dataset: pd.DataFrame,
     test_dataset: pd.DataFrame,
-    drop_duplicates: Optional[bool] = None,
-    normalize: Optional[bool] = None,
-    drop_columns: Optional[List[str]] = None,
+    drop_duplicates: Optional[bool] = True,
+    normalize: Optional[bool] = True,
+    drop_columns: Optional[List[str]] = True,
     target: Optional[str] = "Survived",
     fill_missing: Optional[bool] = True,
 ) -> Tuple[
@@ -93,7 +93,7 @@ def data_preprocessor(
         artifact_name="preprocess_pipeline",
         metadata={"random_state": random_state, "target": target},
     )
-    return (train_dataset_transformed, test_dataset_transformed, preprocess_pipeline)
+    return train_dataset_transformed, test_dataset_transformed, preprocess_pipeline
 
 
 # drop_duplicates - Done

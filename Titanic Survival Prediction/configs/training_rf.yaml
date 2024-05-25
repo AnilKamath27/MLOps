@@ -1,0 +1,21 @@
+# environment configuration
+settings:
+  docker:
+    required_integrations:
+      - sklearn
+    requirements:
+      - pyarrow
+
+# configuration of the Model Control Plane
+model:
+  name: titanic_survival_classifier
+  version: logreg
+  license: Apache 2.0
+  description: A titanic survival classifier
+  tags: ["titanic_survival", "classifier"]
+
+# Configure the pipeline
+parameters:
+  model_type: "rf"  # Choose between rf/logreg
+
+  
