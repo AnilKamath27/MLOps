@@ -13,8 +13,3 @@ model:
   license: Apache 2.0
   description: A titanic survival classifier
   tags: [ "titanic_survival", "classifier" ]
-
-
-# pipeline configuration
-# parameters:
-#   drop_columns: ["PassengerId", "Name", "Ticket", "Cabin"]

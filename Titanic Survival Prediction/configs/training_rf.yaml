@@ -17,5 +17,3 @@ model:
 # Configure the pipeline
 parameters:
   model_type: "rf"  # Choose between rf/logreg
-
-  

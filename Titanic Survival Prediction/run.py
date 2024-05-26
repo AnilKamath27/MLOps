@@ -70,7 +70,7 @@ def main(
             run_args_train["train_dataset_id"] = train_dataset_artifact_version.id
             run_args_train["test_dataset_id"] = test_dataset_artifact_version.id
 
-        # Run the SGD pipeline
+        # Run the LogReg pipeline
         pipeline_args = {}
         if no_cache:
             pipeline_args["enable_cache"] = False
@@ -133,14 +133,20 @@ if __name__ == "__main__":
 
     # main(
     #     inference_pipeline=True,
-        
+
+    # )
+
+    # main(
+    #     train_dataset_name="train_dataset",
+    #     test_dataset_name="test_dataset",
+    #     training_pipeline=True,
+    #     inference_pipeline=True,
+    #     train_dataset_version_name="44",
+    #     test_dataset_version_name="44",
     # )
 
     main(
-        train_dataset_name="train_dataset",
-        test_dataset_name="test_dataset",
+        feature_pipeline=True,
         training_pipeline=True,
         inference_pipeline=True,
-        train_dataset_version_name="44",
-        test_dataset_version_name="44",
     )

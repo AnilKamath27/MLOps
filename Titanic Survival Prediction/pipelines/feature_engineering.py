@@ -1,7 +1,7 @@
 from typing import List, Optional,Tuple
 from steps import data_loader, data_splitter, data_preprocessor
 import pandas as pd
-from zenml import pipeline, step
+from zenml import pipeline
 from zenml.logger import get_logger
 
 logger = get_logger(__name__)
@@ -40,7 +40,7 @@ def feature_engineering(
         The preprocessed training, test, and (if applicable) inference datasets.
     """
 
-    raw_data = data_loader(random_state=random_state, target=target)
+    raw_data = data_loader(random_state=random_state)
     train_dataset, test_dataset = data_splitter(
                 dataset=raw_data, test_size=test_size, shuffle=shuffle
     )

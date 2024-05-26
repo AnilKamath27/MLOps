@@ -1,7 +1,6 @@
 from typing import Union
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.preprocessing import OneHotEncoder
 from zenml.logger import get_logger
 
 logger = get_logger(__name__)
@@ -11,7 +10,8 @@ class DuplicateDropper(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
 
-    def transform(self, X):
+    # @staticmethod
+    def transform(self,X):
         return X.drop_duplicates()
 
 
@@ -19,7 +19,8 @@ class MissingValuesFiller(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
 
-    def transform(self, X):
+    # @staticmethod
+    def transform(self,X):
         return X.ffill().bfill()
 
 class ColumnsDropper(BaseEstimator, TransformerMixin):

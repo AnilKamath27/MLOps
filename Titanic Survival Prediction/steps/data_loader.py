@@ -9,7 +9,7 @@ logger = get_logger(__name__)
 
 @step()
 def data_loader(
-    random_state: int = 42, is_inference: bool = False, target: str = "Survived"
+    random_state: int = 42, is_inference: bool = False
 ) -> Annotated[pd.DataFrame, "dataset"]:
     """Ingests the Titanic dataset and returns the dataset as a DataFrame.
 

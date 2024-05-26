@@ -29,8 +29,6 @@ def model_trainer(
     Returns:
         The trained model.
     """
-    logger.info("Training the model...")
-
     if model_type == "logreg":
         model = LogisticRegression(n_jobs=-1, random_state=42)
     elif model_type == "rf":

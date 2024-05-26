@@ -22,7 +22,7 @@ def training(
     test_dataset_id: Optional[UUID] = None,
     target: Optional[str] = "Survived",
     model_type: Optional[str] = "rf",
-) -> float:
+) -> None:
     """
     Model training pipeline.
 

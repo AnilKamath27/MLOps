@@ -1,0 +1,5 @@
+# Ignore .idea directory (IDE settings)
+.idea/
+
+# Ignore .zen directory
+.zen/
